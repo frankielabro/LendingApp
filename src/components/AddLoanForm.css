@@ -1,0 +1,35 @@
+.add-loan-form h2 {
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* We can reuse the same styles from the other form! */
+/* In a bigger app, we'd make a shared 'form.css' */
+.add-loan-form .form-group {
+  margin-bottom: 20px;
+}
+
+.add-loan-form .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.add-loan-form .form-group input,
+.add-loan-form .form-group select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box; 
+  font-family: inherit; /* Make select match */
+}
+
+.add-loan-form .btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}

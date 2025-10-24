@@ -1,0 +1,47 @@
+.financial-summary {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column on mobile */
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.summary-card label {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.summary-card strong {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* First card (Receivable) */
+.summary-card:nth-child(1) strong {
+  color: #2a8a4d; /* Green */
+}
+/* Second card (Principal) */
+.summary-card:nth-child(2) strong {
+  color: #005a9e; /* Blue */
+}
+/* Third card (Interest) */
+.summary-card:nth-child(3) strong {
+  color: #d95b00; /* Orange */
+}
+
+/* On wider screens, go to 3 columns */
+@media (min-width: 768px) {
+  .financial-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

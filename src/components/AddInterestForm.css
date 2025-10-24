@@ -1,0 +1,79 @@
+.add-interest-form h2 {
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.add-interest-form > p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* Reusing styles from the other form */
+.add-interest-form .current-balance-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #f4f7f6;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+.add-interest-form .current-balance-display span {
+  font-weight: 600;
+  color: #333;
+}
+.add-interest-form .current-balance-display strong {
+  font-size: 1.3rem;
+  color: #d95b00; /* Orange for interest */
+}
+
+.add-interest-form .form-group {
+  margin-bottom: 20px;
+}
+.add-interest-form .form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 0.9rem;
+}
+.add-interest-form .form-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box; 
+}
+
+.add-interest-form .new-due-date-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #fff4e6;
+  border: 1px solid #d95b00;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+.add-interest-form .new-due-date-display span {
+  font-weight: 600;
+  color: #333;
+}
+.add-interest-form .new-due-date-display strong {
+  font-size: 1.1rem;
+  color: #d95b00;
+}
+
+.add-interest-form .btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #d95b00;
+}
+.add-interest-form .btn-primary:hover {
+  background-color: #b34a00;
+}

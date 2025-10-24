@@ -1,0 +1,32 @@
+.add-borrower-form h2 {
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box; /* Important for padding to work */
+}
+
+/* Style the main button to be full-width */
+.add-borrower-form .btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}

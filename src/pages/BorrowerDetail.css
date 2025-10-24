@@ -1,0 +1,73 @@
+.borrower-detail {
+  padding: 16px;
+}
+
+.back-link {
+  text-decoration: none;
+  color: #005a9e;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.detail-header {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.detail-header h1 {
+  margin: 0 0 8px 0;
+}
+
+.header-balance p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.header-balance strong {
+  font-size: 1.8rem;
+  color: #2a8a4d;
+}
+
+
+/* Add this to the bottom of BorrowerDetail.css */
+
+.detail-actions {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+
+}
+
+.empty-state {
+  font-style: italic;
+  color: #777;
+  text-align: center;
+  padding: 32px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Add this to the bottom of BorrowerDetail.css */
+
+.detail-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.detail-header-top h1 {
+  margin: 0;
+}
+
+.btn-edit {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
