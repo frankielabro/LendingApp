@@ -89,3 +89,35 @@
   color: #777;
   font-weight: 400;
 }
+
+
+/* Add this to the bottom of TransactionHistory.css */
+
+.transaction-item {
+  position: relative;
+  /* Make space for the button, depends on your font size */
+  padding-right: 30px; 
+}
+
+.tx-delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
+  padding: 0 5px;
+  line-height: 1;
+  display: none; /* Hide by default */
+}
+
+.transaction-item:hover .tx-delete-btn {
+  display: block; /* Show on hover */
+}
+
+.tx-delete-btn:hover {
+  color: #dc3545; /* Red */
+}

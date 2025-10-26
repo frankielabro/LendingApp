@@ -43,6 +43,7 @@ function AddLoanForm({ borrowerId, onAddLoan, onClose }) {
       transactions: [
         // 5. Create the first "disbursed" transaction
         {
+          id: `tx-${crypto.randomUUID()}`,
           type: 'loan',
           date: startDate,
           amount: principalNum,

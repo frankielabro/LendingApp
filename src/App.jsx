@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 import BorrowerDetail from './pages/BorrowerDetail';
 import './App.css';
 
-// 1. THIS MOCK DATA MUST BE HERE
+// This is our sample data for development
 const mockData = {
   borrowers: [
     {
@@ -24,6 +24,7 @@ const mockData = {
           paymentSchedule: 'monthly',
           transactions: [
             {
+              id: 'tx-m1', // <-- ADDED
               type: 'loan',
               date: '2025-10-01',
               amount: 1000,
@@ -49,6 +50,7 @@ const mockData = {
           paymentSchedule: 'weekly',
           transactions: [
             {
+              id: 'tx-m2', // <-- ADDED
               type: 'loan',
               date: '2025-09-15',
               amount: 5000,
@@ -114,7 +116,7 @@ function App() {
         const updatedLoans = borrower.loans.map(loan => {
           if (loan.id === loanId) {
             const newBalance = loan.remainingBalance - paymentTransaction.amount;
-            const finalTransaction = { ...paymentTransaction, balance: newBalance };
+            const finalTransaction = { ...paymentTransaction, id: `tx-${crypto.randomUUID()}`, balance: newBalance };
             return {
               ...loan,
               remainingBalance: newBalance,
@@ -135,7 +137,7 @@ function App() {
         const updatedLoans = borrower.loans.map(loan => {
           if (loan.id === loanId) {
             const newBalance = loan.remainingBalance + interestTransaction.amount;
-            const finalTransaction = { ...interestTransaction, balance: newBalance };
+            const finalTransaction = { ...interestTransaction, id: `tx-${crypto.randomUUID()}`, balance: newBalance };
             return {
               ...loan,
               remainingBalance: newBalance,
@@ -193,6 +195,68 @@ const handleEditBorrower = (borrowerId, newName) => {
   });
 };
 
+// ... (inside your App function, after handleEditBorrower)
+
+// 1. ADD THIS FUNCTION
+const handleDeleteTransaction = (loanId, transactionId) => {
+  setData((prevData) => {
+    const updatedBorrowers = prevData.borrowers.map(borrower => {
+      const updatedLoans = borrower.loans.map(loan => {
+        if (loan.id === loanId) {
+          // Found the loan, now find the transaction
+          const txIndex = loan.transactions.findIndex(tx => tx.id === transactionId);
+          if (txIndex === -1) return loan; // Not found, do nothing
+
+          const transactionToDelete = loan.transactions[txIndex];
+
+          // **SAFETY RULE: Block deleting the initial 'loan' transaction**
+          if (transactionToDelete.type === 'loan') {
+            alert("Error: Cannot delete the initial loan disbursement. Delete the entire loan instead.");
+            return loan;
+          }
+
+          // 1. Calculate the "balance impact" to reverse
+          // If deleting a payment, balance goes UP.
+          // If deleting an interest charge, balance goes DOWN.
+          const balanceImpact = transactionToDelete.type === 'payment' 
+            ? transactionToDelete.amount 
+            : -transactionToDelete.amount;
+
+          // 2. Filter out the deleted transaction
+          let updatedTransactions = loan.transactions.filter(
+            (tx) => tx.id !== transactionId
+          );
+
+          // 3. Recalculate balances for all *subsequent* transactions
+          // We start from the index where the item *was*
+          for (let i = txIndex; i < updatedTransactions.length; i++) {
+            updatedTransactions[i] = {
+              ...updatedTransactions[i],
+              balance: updatedTransactions[i].balance + balanceImpact,
+            };
+          }
+
+          // 4. Get the new final remaining balance
+          const newRemainingBalance = updatedTransactions.length > 0
+            ? updatedTransactions[updatedTransactions.length - 1].balance
+            : 0; // Should not happen due to our rule, but safe
+
+          return {
+            ...loan,
+            remainingBalance: newRemainingBalance,
+            transactions: updatedTransactions,
+          };
+        }
+        return loan;
+      });
+      return { ...borrower, loans: updatedLoans };
+    });
+    return { ...prevData, borrowers: updatedBorrowers };
+  });
+};
+
+
+
   return (
     <div className="app-container">
       <Routes>
@@ -215,6 +279,7 @@ const handleEditBorrower = (borrowerId, newName) => {
               onAddInterest={handleAddInterest}
               onDeleteBorrower={handleDeleteBorrower}
               onEditBorrower={handleEditBorrower}
+              onDeleteTransaction={handleDeleteTransaction}
             />
           } 
         />

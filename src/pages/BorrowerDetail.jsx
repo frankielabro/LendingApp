@@ -8,7 +8,7 @@ import EditBorrowerForm from '../components/EditBorrowerForm'; // 1. Import Edit
 import './BorrowerDetail.css';
 
 // 2. RECEIVE THE NEW PROP
-function BorrowerDetail({ borrowers, onAddLoan, onRecordPayment, onAddInterest, onDeleteBorrower, onEditBorrower }) {
+function BorrowerDetail({ borrowers, onAddLoan, onRecordPayment, onAddInterest, onDeleteBorrower, onEditBorrower,onDeleteTransaction }) {
   const [isLoanModalOpen, setIsLoanModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // 3. Add new modal state
   const { borrowerId } = useParams();
@@ -81,6 +81,7 @@ function BorrowerDetail({ borrowers, onAddLoan, onRecordPayment, onAddInterest, 
               index={index}
               onRecordPayment={onRecordPayment}
               onAddInterest={onAddInterest}
+              onDeleteTransaction={onDeleteTransaction}
             />
           ))
         )}

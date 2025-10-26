@@ -2,8 +2,8 @@ import React from 'react';
 import { formatCurrency, formatDate } from '../utils/helpers';
 import './TransactionHistory.css';
 
-// Helper to get the right icon and class for each transaction type
 const getTransactionDetails = (type) => {
+  // ... (this helper function is unchanged)
   switch (type) {
     case 'loan':
       return { icon: '💰', label: 'Loan Disbursed', class: 'loan' };
@@ -16,7 +16,18 @@ const getTransactionDetails = (type) => {
   }
 };
 
-function TransactionHistory({ transactions }) {
+// 1. RECEIVE THE NEW PROP
+function TransactionHistory({ transactions, onDeleteTransaction }) {
+  
+  // 2. Create a handler function
+  const handleDelete = (tx) => {
+    // Show a confirmation
+    const txLabel = `${getTransactionDetails(tx.type).label} of ${formatCurrency(tx.amount)} on ${formatDate(tx.date)}`;
+    if (window.confirm(`Are you sure you want to delete this transaction?\n\n${txLabel}`)) {
+      onDeleteTransaction(tx.id);
+    }
+  };
+
   return (
     <div className="transaction-history">
       <h4>Transaction History</h4>
@@ -24,15 +35,16 @@ function TransactionHistory({ transactions }) {
         <p>No transactions yet.</p>
       ) : (
         <ul className="transaction-list">
-          {transactions.map((tx, index) => {
+          {transactions.map((tx) => { // 'index' is no longer needed for key
             const details = getTransactionDetails(tx.type);
             return (
-              <li key={index} className="transaction-item">
+              // 3. Use tx.id for the key
+              <li key={tx.id} className="transaction-item">
                 <div className={`tx-icon ${details.class}`}>{details.icon}</div>
                 <div className="tx-info">
+                  {/* ... (all the info spans) ... */}
                   <span className="tx-label">{details.label}</span>
                   <span className="tx-date">{formatDate(tx.date)}</span>
-                  {/* Show payment breakdown if it's a payment */}
                   {tx.type === 'payment' && (
                     <div className="tx-breakdown">
                       <span>
@@ -45,13 +57,23 @@ function TransactionHistory({ transactions }) {
                   )}
                 </div>
                 <div className={`tx-amount ${details.class}`}>
-                  {/* Payments are negative, others are positive */}
+                  {/* ... (amount and balance) ... */}
                   {tx.type === 'payment' ? '-' : '+'}
                   {formatCurrency(tx.amount)}
                   <span className="tx-balance">
                     Balance: {formatCurrency(tx.balance)}
                   </span>
                 </div>
+                {/* 4. ADD THE DELETE BUTTON */}
+                {/* We don't allow deleting the initial loan tx */}
+                {tx.type !== 'loan' && (
+                  <button 
+                    className="tx-delete-btn"
+                    onClick={() => handleDelete(tx)}
+                  >
+                    &times;
+                  </button>
+                )}
               </li>
             );
           })}

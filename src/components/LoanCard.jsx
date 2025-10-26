@@ -7,7 +7,7 @@ import AddInterestForm from './AddInterestForm'; // 1. Import
 import './LoanCard.css';
 
 // 2. RECEIVE THE NEW PROP
-function LoanCard({ loan, index, onRecordPayment, onAddInterest }) {
+function LoanCard({ loan, index, onRecordPayment, onAddInterest, onDeleteTransaction }) {
   // 3. Add modal states
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isInterestModalOpen, setIsInterestModalOpen] = useState(false); // New state
@@ -60,7 +60,7 @@ function LoanCard({ loan, index, onRecordPayment, onAddInterest }) {
         </button>
       </div>
 
-      <TransactionHistory transactions={loan.transactions} />
+      <TransactionHistory transactions={loan.transactions} onDeleteTransaction={(transactionId) => onDeleteTransaction(loan.id, transactionId)}/>
 
       {/* Payment Modal (already here) */}
       <Modal isOpen={isPaymentModalOpen} onClose={() => setIsPaymentModalOpen(false)}>
